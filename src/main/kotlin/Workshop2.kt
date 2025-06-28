@@ -57,8 +57,27 @@ fun main() {
     println("ผลรวมราคาสินค้า Electronics ที่ราคา > 500 บาท: $totalElecPriceOver500Sequence บาท")
     println("--------------------------------------------------")
 
+    val grouped = products.groupBy { product ->
+        when {
+            product.price <= 1000 -> "กลุ่มของสินค้าที่ราคาไม่เกิน 1,000 บาท"
+            product.price <= 9999.99 -> "กลุ่มของสินค้าที่ราคาอยู่ระหว่าง 1,000 - 9,999 บาท"
+            else -> "กลุ่มของสินค้าราคา 10,000 ขึ้นไป"
+        }
+    }
 
-    println("อภิปรายความแตกต่างระหว่าง List และ Sequence:")
+// แสดงผล
+    for ((groupName, items) in grouped) {
+        println(groupName)
+        for (item in items) {
+            println("${item.name} (${item.price})")
+        }
+        println()
+    }
+
+
+
+    println()
+println("อภิปรายความแตกต่างระหว่าง List และ Sequence:")
     println("1. List Operations (วิธีที่ 1):")
     println("   - ทุกครั้งที่เรียกใช้ operation (เช่น filter, map) จะมีการสร้าง Collection (List) ใหม่ขึ้นมาเพื่อเก็บผลลัพธ์ของขั้นนั้นๆ")
     println("   - ตัวอย่าง: filter ครั้งแรกสร้าง List ใหม่ -> filter ครั้งที่สองสร้าง List ใหม่อีกใบ -> map สร้าง List สุดท้าย -> sum ทำงาน")
@@ -72,3 +91,5 @@ fun main() {
     println("   - จะไม่มีการสร้าง Collection กลางทาง ทำให้ประหยัดหน่วยความจำและเร็วกว่ามากสำหรับชุดข้อมูลขนาดใหญ่ เพราะทำงานกับข้อมูลทีละชิ้นและทำทุกขั้นตอนให้เสร็จในรอบเดียว")
     println("   - การคำนวณจะเกิดขึ้นเมื่อมี 'Terminal Operation' มาเรียกใช้เท่านั้น (ในที่นี้คือ .sum())")
 }
+
+
